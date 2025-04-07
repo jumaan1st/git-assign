@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git & GitHub Basics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 0 10px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .navbar a.active {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Main Content Styles */
+        .container {
+            margin-top: 80px;
+            padding: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.5em;
+            animation: fadeInDown 1s ease;
+        }
+
+        h2 {
+            color: #3498db;
+            margin: 30px 0 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: #3498db;
+            bottom: 0;
+            left: 0;
+        }
+
+        p {
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            animation: fadeInUp 1s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin: 10px 0;
+            position: relative;
+        }
+
+        ul li::before {
+            content: '✓';
+            color: #2ecc71;
+            position: absolute;
+            left: -20px;
+        }
+
+        /* Background */
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#git">Git Info</a>
+        <a href="#github">GitHub Info</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Git & GitHub Basics</h1>
+
+        <div class="section" id="git">
+            <h2>What is Git?</h2>
+            <p>Git is a distributed version control system that allows multiple developers to work on a project simultaneously without overwriting each other's changes. It was created by Linus Torvalds in 2005.</p>
+            <p>Key features of Git include:</p>
+            <ul>
+                <li>Branching and merging</li>
+                <li>Distributed development</li>
+                <li>Version tracking</li>
+                <li>Staging area</li>
+            </ul>
+        </div>
+
+        <div class="section" id="github">
+            <h2>What is GitHub?</h2>
+            <p>GitHub is a platform for version control and collaborative software development. It builds upon Git by providing a web-based interface and additional features.</p>
+            <p>GitHub features include:</p>
+            <ul>
+                <li>Remote repositories</li>
+                <li>Pull requests</li>
+                <li>Issue tracking</li>
+                <li>Code review tools</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navbar links
+        document.querySelectorAll('.navbar a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionId = this.getAttribute('href');
+                const section = document.querySelector(sectionId);
+                
+                window.scrollTo({
+                    top: section.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add active class to current nav item
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.navbar a');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                const scrollPosition = window.scrollY;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + section.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Navbar shrink on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '0.5rem';
+            } else {
+                navbar.style.padding = '1rem';
+            }
+        });
+    </script>
+</body>
+</html>
